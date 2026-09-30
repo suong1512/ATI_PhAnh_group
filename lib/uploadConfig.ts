@@ -11,7 +11,8 @@ export const ACCEPTED_EXTENSIONS = [".pdf", ".png", ".jpg", ".jpeg"] as const;
 
 /** Client-side pre-flight check. Returns an error message, or null when the file is acceptable. */
 export function validateUploadFile(file: File): string | null {
-  const extension = file.name.slice(file.name.lastIndexOf(".")).toLowerCase();
+  const dotIndex = file.name.lastIndexOf(".");
+  const extension = dotIndex >= 0 ? file.name.slice(dotIndex).toLowerCase() : "";
   const mimeOk = (ACCEPTED_MIME_TYPES as readonly string[]).includes(file.type.toLowerCase());
   const extensionOk = (ACCEPTED_EXTENSIONS as readonly string[]).includes(extension);
 
